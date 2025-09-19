@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Wake Up, My Love 💌</title>
+<style>
+:root{--bg1:#0f172a;--accent:#ff6b81;--accent2:#ffd166}
+html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;transition:background 3s ease}
+body{background:linear-gradient(180deg,var(--bg1) 0%, #071026 60%);color:white;display:flex;align-items:center;justify-content:center}
+.card{width:92vw;max-width:720px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(2,6,23,0.6);backdrop-filter: blur(6px);transition:box-shadow 1s ease}
+h1{font-size:1.6rem;margin:6px 0}
+p{margin:8px 0;line-height:1.45;color:rgba(255,255,255,0.95)}
+.typed{min-height:3.2rem;font-size:1.15rem}
+.typed strong{color:var(--accent2);text-shadow:0 0 6px var(--accent)}
+.big-emoji{font-size:3rem}
+.center{display:flex;gap:10px;align-items:center}
+.controls{display:flex;gap:10px;margin-top:12px}
+button{flex:1;padding:12px;border-radius:12px;border:0;font-weight:600;font-size:1rem}
+.btn-forgive{background:linear-gradient(90deg,var(--accent),#ff3b6b);color:white}
+.btn-no{background:transparent;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.9)}
+.small{font-size:.9rem;color:rgba(255,255,255,.7)}
+.footer{margin-top:12px;font-size:.85rem;color:rgba(255,255,255,.6)}
+.cover{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(7,10,24,0.6),rgba(2,6,23,0.8));z-index:60}
+.start-btn{background:linear-gradient(90deg,var(--accent),var(--accent2));padding:14px 20px;border-radius:999px;color:#031022;font-weight:800;border:0;font-size:1rem}
+.hearts{pointer-events:none;position:fixed;inset:0;z-index:40;overflow:hidden}
+.heart{position:absolute;opacity:0.95;font-size:22px;user-select:none}
+.confetti{position:fixed;left:0;right:0;bottom:0;height:0;pointer-events:none}
+.photo{width:100%;height:200px;border-radius:12px;object-fit:cover;margin-top:10px;transition:transform 1s ease, box-shadow 1s ease}
+.photo.revealed{transform:scale(1.05);box-shadow:0 0 30px rgba(255,107,129,0.6)}
+.progress{height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;margin-top:10px}
+.progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd166,#ff6b81)}
+.reveal-full{position:fixed;inset:0;background:rgba(3,6,14,0.95);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px}
+.reveal-full img{max-width:98%;max-height:92%;border-radius:20px;box-shadow:0 0 50px rgba(255,107,129,0.8);animation:zoomIn 2s ease forwards}
+@keyframes zoomIn{from{transform:scale(0.6);opacity:0}to{transform:scale(1);opacity:1}}
+.small-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px}
+@media(min-width:720px){.card{padding:28px}}
+</style>
+</head>
+<body>
+<div class="card" role="main" aria-labelledby="title">
+<div class="center" style="justify-content:space-between">
+<div>
+<div class="big-emoji">💌</div>
+<h1 id="title">For Anu — my Chapli</h1>
+</div>
+<div class="small">From Ayush</div>
+</div>
+<div class="typed" id="typed"></div>
+<p class="small">I want to say sorry properly. I know I reacted badly about the pizza and I let my anger turn a small thing into a fight. You mean so much to me and I hate that I made you feel bad.</p>
+<img id="previewPhoto" class="photo" src="https://scontent.fktm19-1.fna.fbcdn.net/v/t1.15752-9/548078326_648572301245637_379340187270681854_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=0024fc&_nc_ohc=wh9ocALLe9oQ7kNvwHhdDvW&_nc_oc=Adnl6gpJj7QBi7g12GcLu7ItIdw0yoJnXRmWqWSRMr4Q2YxnU7TGbV3dIDYKxKuUVyI&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&oh=03_Q7cD3QF3eVOob9DauJn0ZyhNcVWx_62Qq3uYVh8G2ZJ_8qX6rA&oe=68F5045C" alt="Chapli photo" />
+<div class="progress" aria-hidden><i id="prog"></i></div>
+<div class="controls">
+<button class="btn-forgive" id="forgive">Forgive</button>
+<button class="btn-no" id="not-forgive">Need time</button>
+</div>
+<p class="footer">Tip: Tap a button to let me know. If you forgive me, the music becomes more loving. ❤️</p>
+<div style="display:flex;gap:8px;margin-top:12px">
+<button id="playPause" class="small-ghost">Play / Pause</button>
+<button id="reveal" class="small-ghost" style="display:none">Reveal photo now</button>
+<button id="downloadNote" class="small-ghost">Download note</button>
+</div>
+</div>
+<div class="hearts" id="hearts"></div>
+<div class="confetti" id="confetti"></div>
+<div class="cover" id="cover">
+<div style="text-align:center;max-width:88vw">
+<h2 style="color:white;margin:0 0 6px">Wake up, Chapli ❤️</h2>
+<p style="color:rgba(255,255,255,0.9);margin:0 0 14px">Ayush made this little surprise for you — tap to start</p>
+<button class="start-btn" id="start">Open surprise</button>
+</div>
+</div>
+<iframe id="ytplayer" type="text/html" width="1" height="1" style="opacity:0.01;position:fixed;left:8px;bottom:8px;z-index:1" src="https://www.youtube.com/embed/2Vv-BfVoq4g?enablejsapi=1&rel=0&playsinline=1&controls=0&start=8" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+<div id="fullReveal" class="reveal-full" style="display:none">
+<div style="text-align:center">
+<img id="fullImage" src="" alt="Big surprise" />
+<h2 style="color:var(--accent2);margin-top:12px;text-shadow:0 0 10px var(--accent)">You're my forever, Chapli 💖</h2>
+<div style="margin-top:12px;display:flex;gap:8px;justify-content:center">
+<button id="closeReveal" class="small-ghost">Close</button>
+<button id="savePhoto" class="small-ghost">Save</button>
+</div>
+</div>
+</div>
+<script>
+const typedEl=document.getElementById('typed');
+const steps=[
+{text:"Chapli... I'm <strong>really sorry</strong>.",timestamp:8},
+{text:"I got angry about the pizza — I shouldn't have made you feel bad.",timestamp:35},
+{text:"But truth is... <strong>You mean everything to me</strong>.",timestamp:65},
+{text:"I promise to listen, be patient, and hold you closer when life feels small.",timestamp:90},
+{text:"Please <strong>forgive</strong> me — I love you more than words.",timestamp:125}
+];
+function typeMessage(msg,speed=32){return new Promise(resolve=>{typedEl.innerHTML='';let i=0;const t=setInterval(()=>{typedEl.innerHTML+=msg[i++]||'';document.getElementById('prog').style.width=Math.min(100,Math.round(((i/msg.length))*100))+'%';if(i>msg.length){clearInterval(t);setTimeout(resolve,800);}},speed);});}
+const hearts=document.getElementById('hearts');
+function spawnHeart(x,y){const el=document.createElement('div');el.className='heart';el.style.left=(x||Math.random()*100)+'%';el.style.top=(y||Math.random()*60)+'%';el.textContent=['❤️','💖','💕'][Math.floor(Math.random()*3)];hearts.appendChild(el);const dur=3000+Math.random()*3500;el.animate([{transform:'translateY(0) scale(0.9)',opacity:1},{transform:'translateY(-120px) scale(1.1)',opacity:0}],{duration:dur,easing:'linear'});setTimeout(()=>el.remove(),dur+50);}
+function confettiBurst(){for(let i=0;i<30;i++){setTimeout(()=>spawnConfetti(),i*12);}}
+function spawnConfetti(){const el=document.createElement('div');el.style.position='fixed';el.style.width='9px';el.style.height='14px';el.style.left=(Math.random()*100)+'%';el.style.bottom='20%';el.style.background=['#ffd166','#ff6b81','#8be9fd','#c3f584'][Math.floor(Math.random()*4)];el.style.borderRadius='2px';el.style.transform='translateY(0) rotate('+Math.random()*360+'deg)';document.body.appendChild(el);const dur=2000+Math.random()*2000;el.animate([{transform:'translateY(0) rotate(0deg)',opacity:1},{transform:'translateY(500px) rotate(360deg)',opacity:0}],{duration:dur,easing:'cubic-bezier(.2,.8,.2,1)'});setTimeout(()=>el.remove(),dur+50);}
+let player=null;let ytReady=false;let shouldPlayOnceReady=false;
+function onYouTubeIframeAPIReady(){try{player=new YT.Player('ytplayer',{playerVars:{'playsinline':1,'controls':0,'rel':0},events:{'onReady':()=>{ytReady=true;if(shouldPlayOnceReady){try{player.playVideo();}catch(e){}}}}});}catch(e){console.warn('YT Player error',e);}}
+(function(){var tag=document.createElement('script');tag.src="https://www.youtube.com/iframe_api";var firstScriptTag=document.getElementsByTagName('script')[0];firstScriptTag.parentNode.insertBefore(tag,firstScriptTag);})();
+const startBtn=document.getElementById('start');
+const revealBtn=document.getElementById('reveal');
+const playPause=document.getElementById('playPause');
+const fullReveal=document.getElementById('fullReveal');
+const fullImage=document.getElementById('fullImage');
+const previewPhoto=document.getElementById('previewPhoto');
+async function playSequenceAndMusic(){try{if(player&&ytReady){player.playVideo();player.setVolume(55);}else{shouldPlayOnceReady=true;}}catch(e){console.warn('play failed',e);}
+for(let i=0;i<5;i++)setTimeout(()=>spawnHeart(),i*400);
+for(let s of steps){await new Promise(r=>setTimeout(r,(s.timestamp-(player.getCurrentTime()||0))*1000));await typeMessage(s.text);}
+revealBtn.style.display='inline-block';revealBtn.focus();document.body.style.background='linear-gradient(180deg,#43105f 0%,#1b0c3a 100%)';document.querySelector('.card').style.boxShadow='0 0 50px rgba(255,107,129,0.8)';}
+startBtn.addEventListener('click',()=>{document.getElementById('cover').style.display='none';playSequenceAndMusic();});
+playPause.addEventListener('click',()=>{if(player&&ytReady){const state
